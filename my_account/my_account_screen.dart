@@ -31,10 +31,10 @@ class MyAccountScreen extends BaseBlocStatelessWidget<MyAccountBloc> {
           child: Scaffold(
             appBar: AccountAppBar(
               onSettingsPressed: () {
-                getBloc(context).add(MyAccountEvent.settingsClicked());
+                getBloc(context).add(const MyAccountEvent.settingsClicked());
               },
               onEditPressed: () {
-                getBloc(context).add(MyAccountEvent.editClicked());
+                getBloc(context).add(const MyAccountEvent.editClicked());
               },
             ),
             body: _buildBody(context),
@@ -244,7 +244,7 @@ class MyAccountScreen extends BaseBlocStatelessWidget<MyAccountBloc> {
               getBloc(context).add(MyAccountEvent.benefitOnMoreClicked(state.benefits[index].type));
             },
           ),
-          separatorBuilder: (BuildContext context, int index) => SizedBox(height: 16),
+          separatorBuilder: (BuildContext context, int index) => const SizedBox(height: 16),
         ),
       );
 
@@ -256,15 +256,14 @@ class MyAccountScreen extends BaseBlocStatelessWidget<MyAccountBloc> {
     CategoryEntity? newSelectedCategory = await AppBottomSheet.show<CategoryEntity?>(
       context,
         SelectCategoryBottomSheet(
-        availableTextWidth: MediaQuery.of(context).size.width * 0.75,
-        unavailableTextWidth: MediaQuery.of(context).size.width * 0.6,
         categories: categories,
         selectedCategory: selectedCategory,
     ),
       rootNavigator: true,
 
     );
-    if (newSelectedCategory == null) newSelectedCategory = selectedCategory;
-    getBloc(context).add(MyAccountEvent.categorySelected(newSelectedCategory));
+    if (newSelectedCategory != null) { 
+      getBloc(context).add(MyAccountEvent.categorySelected(newSelectedCategory));
+    }
   }
 }

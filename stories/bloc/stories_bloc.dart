@@ -54,7 +54,6 @@ class StoriesBloc extends Bloc<StoriesEvent, StoriesState> {
           needShowFirst: true,
           indexPage: state.stories.indexOf(state.currentStory),
         )));
-    emit(state.copyWith(action: null));
   }
 
   FutureOr<void> _storyCompleted(StoryCompleted event, Emitter<StoriesState> emit) async {
@@ -70,13 +69,11 @@ class StoriesBloc extends Bloc<StoriesEvent, StoriesState> {
           )));
     } else {
       emit(state.copyWith(action: NavigateBack()));
-      emit(state.copyWith(action: StoriesEnd()));
     }
   }
 
   FutureOr<void> _onCloseClicked(OnCloseClicked event, Emitter<StoriesState> emit) async {
     emit(state.copyWith(action: NavigateBack()));
-    emit(state.copyWith(action: StoriesEnd()));
   }
 
   FutureOr<void> _onLongPressed(OnLongPressed event, Emitter<StoriesState> emit) async {
@@ -84,10 +81,7 @@ class StoriesBloc extends Bloc<StoriesEvent, StoriesState> {
   }
 
   FutureOr<void> _videoInitializing(VideoInitializing event, Emitter<StoriesState> emit) async {
-    // bool videoInitializing
-    // if (state.videoLoading) {
       emit(state.copyWith(videoLoading: !state.videoLoading));
-    // } else emit(state.copyWith(videoLoading: ));
   }
 
   FutureOr<void> _onLongPressCanceled(OnLongPressCanceled event, Emitter<StoriesState> emit) async {
@@ -107,7 +101,6 @@ class StoriesBloc extends Bloc<StoriesEvent, StoriesState> {
           )));
     } else {
       emit(state.copyWith(action: NavigateBack()));
-      emit(state.copyWith(action: StoriesEnd()));
     }
   }
 
